@@ -15,7 +15,7 @@ public class NetflixZuulApiGatewayServerApplication {
 		SpringApplication.run(NetflixZuulApiGatewayServerApplication.class, args);
 	}
 
-//creating a bean
+//creating a bean//
 	@Bean
 //creating a sampler called always sampler
 	public Sampler defaultSampler() {

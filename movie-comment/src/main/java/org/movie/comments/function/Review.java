@@ -20,7 +20,7 @@ public class Review {
 	@GeneratedValue
 	private int id;
 	private String comment;
-	private String rating;
+	private String rating; 
 	
 
 

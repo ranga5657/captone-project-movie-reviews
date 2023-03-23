@@ -14,6 +14,8 @@ public class NetflixZuulApiGatewayServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NetflixZuulApiGatewayServerApplication.class, args);
 	}
+	
+	//fffefgef
 
 //creating a bean//
 	@Bean

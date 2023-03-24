@@ -1,8 +1,13 @@
 package org.movie.comments.function;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +28,10 @@ public class Movie {
 	private String cast;
 	private String genre;
 	private String director;
+	
+	@OneToMany(mappedBy="movie")
+	@JsonIgnore
+	private List<Review> reviews;
 	
 	
 	//fefefwfw4ef

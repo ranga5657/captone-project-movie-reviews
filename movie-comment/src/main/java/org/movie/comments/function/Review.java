@@ -24,12 +24,10 @@ public class Review {
 	@GeneratedValue
 	private int id;
 	private String comment;
-	private String rating; 
+	private String rating;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Movie movie;
-	
-
 
 }

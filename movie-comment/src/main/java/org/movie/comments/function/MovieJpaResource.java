@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.movie.comments.repository.MovieRepository;
 import org.movie.comments.repository.ReviewRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,18 +16,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+
 @RestController
 public class MovieJpaResource {
 	
 	
-	
+	@Autowired
 	private MovieRepository movieRepository;
-	
+	@Autowired
 	private ReviewRepository reviewRepository;
+	
 	
 	
 	@GetMapping("/jpa/movies")

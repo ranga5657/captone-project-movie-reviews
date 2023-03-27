@@ -98,7 +98,7 @@ public class MovieJpaResource {
 		
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
-				.buildAndExpand(savedReview.getId())
+				.buildAndExpand(savedReview.getReviewId())
 				.toUri();   
 
 		return ResponseEntity.created(location).build();

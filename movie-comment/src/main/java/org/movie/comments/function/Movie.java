@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -29,7 +30,7 @@ public class Movie {
 	private String genre;
 	private String director;
 	
-	@OneToMany(mappedBy="movie")
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Review> reviews;
 	

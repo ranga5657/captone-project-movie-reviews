@@ -1,9 +1,7 @@
 package org.movie.comments.function;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -22,12 +20,12 @@ public class Review {
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	
+	private int reviewId;
 	private String comment;
 	private String rating;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonIgnore
+	@ManyToOne
 	private Movie movie;
 
 }

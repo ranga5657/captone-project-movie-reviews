@@ -2,6 +2,8 @@ package org.movie.comments.function;
 
 
 import java.net.URI;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,12 +12,15 @@ import org.movie.comments.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 //<<<<<<< HEAD
 //import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -78,6 +83,33 @@ public class MovieJpaResource {
 		
 		return movie.get().getReviews();
 
+	}
+	
+	@RequestMapping(value = "/jpa/movies/{id}", method = RequestMethod.PATCH, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Movie> updateMoviebyid(@PathVariable(value = "id") int id,
+			@RequestBody Movie movieDetails) throws MovieNotFoundException {
+		Movie movie = movieRepository.findById(id)
+				.orElseThrow(() -> new MovieNotFoundException("Movie not found for this id :: " + id));
+
+		@SuppressWarnings("unused")
+		Movie adminservice = new Movie();
+
+		String pattern = "dd/MM/yyyy hh:mm:ss";
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+//		String date = simpleDateFormat.format(new Date());
+//		movie.setCreatedat(date);
+//		movie.setUpdatedat(date);
+		
+		movie.setMoviename(movieDetails.getMoviename());
+		movie.setCast(movieDetails.getCast());
+		movie.setDirector(movieDetails.getDirector());
+		movie.setGenre(movieDetails.getGenre());
+		final Movie updatedMovie = movieRepository.save(movie);
+
+		return (ResponseEntity<Movie>) ResponseEntity.ok(updatedMovie);
 	}
 	
 

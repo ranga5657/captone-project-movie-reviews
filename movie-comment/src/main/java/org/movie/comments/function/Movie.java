@@ -29,6 +29,13 @@ public class Movie {
 	private String cast;
 	private String genre;
 	private String director;
+	private String releasedate;
+	private String language;
+	private String summary;
+	private String picture;
+	private String videolink;
+	private String createdDate;
+	private String updatedDate;
 	
 	@OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE)
 	@JsonIgnore

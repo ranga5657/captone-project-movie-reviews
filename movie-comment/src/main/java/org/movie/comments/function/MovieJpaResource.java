@@ -94,26 +94,33 @@ public class MovieJpaResource {
 
 		@SuppressWarnings("unused")
 		Movie adminservice = new Movie();
-
+ 
 		String pattern = "dd/MM/yyyy hh:mm:ss";
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-//		String date = simpleDateFormat.format(new Date());
-//		movie.setCreatedat(date);
-//		movie.setUpdatedat(date);
+		
+//		String pattern = "dd/MM/yyyy hh:mm:ss";
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//		String date = simpleDateFormat.format(new Date());		
 		
 		movie.setMoviename(movieDetails.getMoviename());
 		movie.setCast(movieDetails.getCast());
 		movie.setDirector(movieDetails.getDirector());
 		movie.setGenre(movieDetails.getGenre());
+		movie.setReleasedate(movieDetails.getReleasedate());
+		movie.setSummary(movieDetails.getSummary());
+		movie.setLanguage(movieDetails.getLanguage());
+		movie.setPicture(movieDetails.getPicture());
+		movie.setVideolink(movieDetails.getVideolink());
+		movie.setCreatedDate(movieDetails.getCreatedDate());
+		movie.setUpdatedDate(movieDetails.getUpdatedDate());
+		
+		
 		final Movie updatedMovie = movieRepository.save(movie);
 
 		return (ResponseEntity<Movie>) ResponseEntity.ok(updatedMovie);
 	}
-	
-
-	
 	
 	
 	

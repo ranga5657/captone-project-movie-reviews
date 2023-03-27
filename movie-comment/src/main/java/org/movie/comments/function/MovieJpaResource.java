@@ -49,6 +49,18 @@ public class MovieJpaResource {
 				.orElseThrow(() -> new MovieNotFoundException("Movie not found for this id :: " + id));
 		return ResponseEntity.ok().body(movie);
 	}
+	@PostMapping("/jpa/movies")
+	public ResponseEntity<Movie> createMovie( @RequestBody Movie movie) {
+		
+		Movie savedMovie = movieRepository.save(movie);
+
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+						.path("/{id}")
+						.buildAndExpand(savedMovie.getId())
+						.toUri();   
+		
+		return ResponseEntity.created(location).build();
+	}
 	
 
 	
@@ -69,18 +81,7 @@ public class MovieJpaResource {
 	}
 	
 
-	@PostMapping("/jpa/movies")
-	public ResponseEntity<Movie> createMovie( @RequestBody Movie movie) {
-		
-		Movie savedMovie = movieRepository.save(movie);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-						.path("/{id}")
-						.buildAndExpand(savedMovie.getId())
-						.toUri();   
-		
-		return ResponseEntity.created(location).build();
-	}
+	
 	
 	
 	

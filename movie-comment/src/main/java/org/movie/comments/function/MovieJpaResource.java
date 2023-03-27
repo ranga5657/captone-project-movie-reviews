@@ -2,7 +2,6 @@ package org.movie.comments.function;
 
 
 import java.net.URI;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +9,6 @@ import java.util.Optional;
 import org.movie.comments.repository.MovieRepository;
 import org.movie.comments.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.movie.comments.repository.MovieRepository;
 import org.movie.comments.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,20 +41,16 @@ public class MovieJpaResource {
 		return movieRepository.findAll();
 	}
 	
-//	@GetMapping("/jpa/movie/{id}")
-//	public EntityModel<Movie> retrieveMovie(@PathVariable int id) {
-//		Optional<Movie> movie = movieRepository.findById(id);
-//		
-//		if(movie.isEmpty())
-//			throw new MovieNotFoundException("id:"+id);
-//		
-//		EntityModel<Movie> entityModel = EntityModel.of(movie.get());
-//		
-//		WebMvcLinkBuilder link =  linkTo(methodOn(this.getClass()).retrieveAllMovies());
-//		entityModel.add(link.withRel("all-movies"));
-//		
-//		return entityModel;
-//	}
+	
+	@GetMapping("/jpa/movies/{id}")
+	public ResponseEntity<Movie> getMovieById(@PathVariable(value = "id") int id)
+			throws MovieNotFoundException {
+		Movie movie = movieRepository.findById(id)
+				.orElseThrow(() -> new MovieNotFoundException("Movie not found for this id :: " + id));
+		return ResponseEntity.ok().body(movie);
+	}
+	
+
 	
 	@DeleteMapping("/jpa/movies/{id}")
 	public void deleteMovie(@PathVariable int id) {
@@ -82,6 +80,28 @@ public class MovieJpaResource {
 						.toUri();   
 		
 		return ResponseEntity.created(location).build();
+	}
+	
+	
+	
+	@PostMapping("/jpa/movies/{id}/reviews")
+	public ResponseEntity<Object> createReviewForMovie(@PathVariable int id, @RequestBody Review review) {
+		Optional<Movie> movie = movieRepository.findById(id);
+		
+		if(movie.isEmpty())
+			throw new MovieNotFoundException("id:"+id);
+		
+		review.setMovie(movie.get());
+		
+		Review savedReview = reviewRepository.save(review);
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}")
+				.buildAndExpand(savedReview.getId())
+				.toUri();   
+
+		return ResponseEntity.created(location).build();
+
 	}
 	
 

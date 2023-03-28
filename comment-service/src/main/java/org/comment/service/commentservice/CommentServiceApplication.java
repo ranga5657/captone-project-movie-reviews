@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableEurekaClient
-//@EnableZuulProxy
+@EnableZuulProxy
 @EnableFeignClients
 public class CommentServiceApplication {
 
@@ -22,3 +22,4 @@ public class CommentServiceApplication {
 	//fghjklkjhgfdsdfghjkl
 	
 }
+
